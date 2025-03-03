@@ -1,0 +1,32 @@
+[
+    {
+        "id": 1,
+        "type": "Gaming",
+        "brand": "Asus ROG",
+        "ram": "16GB",
+        "ssd": "512GB",
+        "processor": "Intel Core i7",
+        "gpu": "NVIDIA RTX 3060",
+        "price": 30000000
+    },
+    {
+        "id": 2,
+        "type": "Ultrabook",
+        "brand": "Dell XPS",
+        "ram": "16GB",
+        "ssd": "1TB",
+        "processor": "Intel Core i9",
+        "gpu": "Intel Iris Xe",
+        "price": 35000000
+    },
+    {
+        "id": 3,
+        "brand": "Lenovo LOQ",
+        "type": "Gamnig",
+        "ram": "1TB",
+        "ssd": "1TB",
+        "processor": "Intel Core i9",
+        "gpu": "-",
+        "price": 17000000
+    }
+]
