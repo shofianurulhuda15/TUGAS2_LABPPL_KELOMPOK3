@@ -120,6 +120,88 @@ function addLaptop() {
     });
 }
 
+// Fungsi untuk menghapus laptop berdasarkan ID
+function deleteLaptop() {
+    rl.question("Masukkan ID laptop yang ingin dihapus: ", (id) => {
+        fs.readFile('data.json', 'utf-8', (err, data) => {
+            if (err) {
+                console.error("Error membaca file:", err);
+                return;
+            }
+
+            let laptops = JSON.parse(data);
+            let newLaptops = laptops.filter(laptop => laptop.id !== parseInt(id));
+
+            if (newLaptops.length === laptops.length) {
+                console.log("Laptop tidak ditemukan!\n");
+            } else {
+                fs.writeFile('data.json', JSON.stringify(newLaptops, null, 4), (err) => {
+                    if (err) {
+                        console.error("Error menulis file:", err);
+                        return;
+                    }
+                    console.log("\nLaptop berhasil dihapus!\n");
+                });
+            }
+
+            showMenu();
+        });
+    });
+}
+
+// Fungsi untuk mengupdate laptop berdasarkan ID
+function updateLaptop() {
+    rl.question("Masukkan ID laptop yang ingin diperbarui: ", (id) => {
+        fs.readFile('data.json', 'utf-8', (err, data) => {
+            if (err) {
+                console.error("Error membaca file:", err);
+                return;
+            }
+
+            let laptops = JSON.parse(data);
+            let laptop = laptops.find(l => l.id === parseInt(id));
+
+            if (!laptop) {
+                console.log("Laptop tidak ditemukan!\n");
+                showMenu();
+                return;
+            }
+
+            console.log("\nMasukkan data baru (tekan Enter untuk melewati)");
+            rl.question(`Brand (${laptop.brand}): `, (brand) => {
+                rl.question(`Type (${laptop.type}): `, (type) => {
+                    rl.question(`RAM (${laptop.ram}): `, (ram) => {
+                        rl.question(`SSD (${laptop.ssd}): `, (ssd) => {
+                            rl.question(`Processor (${laptop.processor}): `, (processor) => {
+                                rl.question(`GPU (${laptop.gpu}): `, (gpu) => {
+                                    rl.question(`Harga (${laptop.price}): `, (price) => {
+                                        laptop.brand = brand.trim() || laptop.brand;
+                                        laptop.type = type.trim() || laptop.type;
+                                        laptop.ram = ram.trim() || laptop.ram;
+                                        laptop.ssd = ssd.trim() || laptop.ssd;
+                                        laptop.processor = processor.trim() || laptop.processor;
+                                        laptop.gpu = gpu.trim() || laptop.gpu;
+                                        laptop.price = price.trim() ? parseInt(price.trim()) : laptop.price;
+
+                                        fs.writeFile('data.json', JSON.stringify(laptops, null, 4), (err) => {
+                                            if (err) {
+                                                console.error("Error menulis file:", err);
+                                                return;
+                                            }
+                                            console.log("\nLaptop berhasil diperbarui!\n");
+                                            showMenu();
+                                        });
+                                    });
+                                });
+                            });
+                        });
+                    });
+                });
+            });
+        });
+    });
+}
+
 function showMenu() {
     console.log("\n=== MENU LAPTOP ===");
     console.log("1. Lihat semua laptop");
